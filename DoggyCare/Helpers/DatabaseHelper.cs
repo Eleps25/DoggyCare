@@ -33,7 +33,7 @@ namespace DoggyCare.Helpers {
         }
 
         // Get Records
-        public static List<CareRecord> GetRecords() {
+        public static List<CareRecord> GetCareRecords() {
             List<CareRecord> careRecords = new List<CareRecord>();
             careRecords.Clear();
 
@@ -61,8 +61,8 @@ namespace DoggyCare.Helpers {
         }
 
         // Get Record with ID
-        public static CareRecord GetRecord(int id) {
-            List<CareRecord> careRecords = GetRecords();
+        public static CareRecord GetCareRecord(int id) {
+            List<CareRecord> careRecords = GetCareRecords();
 
             foreach (CareRecord careRecord in careRecords) {
                 if (careRecord.Id == id) return careRecord;
@@ -72,6 +72,26 @@ namespace DoggyCare.Helpers {
         }
 
         // Add Record
+        public static void AddCareRecord(CareRecord inputCareRecord) {
+            using (var connection = new SQLiteConnection(connectionString)) {
+                connection.Open();
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = $"INSERT INTO {tableName} (Date, Year, Month, Day, Type, Price, Weight, Description) VALUES(@Date, @Year, @Month, @Day, @Type, @Price, @Weight, @Description)";
+                cmd.Parameters.AddWithValue("@Date", inputCareRecord.Date.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@Year", inputCareRecord.Year);
+                cmd.Parameters.AddWithValue("@Month", inputCareRecord.Month);
+                cmd.Parameters.AddWithValue("@Day", inputCareRecord.Day);
+                cmd.Parameters.AddWithValue("@Type", inputCareRecord.Type);
+                cmd.Parameters.AddWithValue("@Price", (double)inputCareRecord.Price);
+                if (inputCareRecord.Weight.HasValue) {
+                    cmd.Parameters.AddWithValue("@Weight", (double)inputCareRecord.Weight.Value);
+                } else {
+                    cmd.Parameters.AddWithValue("@Weight", DBNull.Value);
+                }
+                cmd.Parameters.AddWithValue("@Description", inputCareRecord.Description ?? "");
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         // Update Record
 
