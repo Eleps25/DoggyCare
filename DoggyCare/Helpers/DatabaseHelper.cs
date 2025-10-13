@@ -56,6 +56,7 @@ namespace DoggyCare.Helpers {
                         Description = reader.IsDBNull(8) ? string.Empty : reader.GetString(8)
                     });
                 }
+                connection.Close();
                 return careRecords;
             }
         }
@@ -90,10 +91,32 @@ namespace DoggyCare.Helpers {
                 }
                 cmd.Parameters.AddWithValue("@Description", inputCareRecord.Description ?? "");
                 cmd.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
         // Update Record
+        public static void UpdateRecord(CareRecord updateCareRecord) {
+            using (var connection = new SQLiteConnection(connectionString)) {
+                connection.Open();
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = $"UPDATE {tableName} (Date, Year, Month, Day, Type, Price, Weight, Description) VALUES(@Date, @Year, @Month, @Day, @Type, @Price, @Weight, @Description)";
+                cmd.Parameters.AddWithValue("@Date", updateCareRecord.Date.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@Year", updateCareRecord.Year);
+                cmd.Parameters.AddWithValue("@Month", updateCareRecord.Month);
+                cmd.Parameters.AddWithValue("@Day", updateCareRecord.Day);
+                cmd.Parameters.AddWithValue("@Type", updateCareRecord.Type);
+                cmd.Parameters.AddWithValue("@Price", (double)updateCareRecord.Price);
+                if (updateCareRecord.Weight.HasValue) {
+                    cmd.Parameters.AddWithValue("@Weight", (double)updateCareRecord.Weight.Value);
+                } else {
+                    cmd.Parameters.AddWithValue("@Weight", DBNull.Value);
+                }
+                cmd.Parameters.AddWithValue("@Description", updateCareRecord.Description ?? "");
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
 
         // Delete Record
         public static void DeleteRecord(int id) {
