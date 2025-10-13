@@ -61,6 +61,15 @@ namespace DoggyCare.Helpers {
         }
 
         // Get Record with ID
+        public static CareRecord GetRecord(int id) {
+            List<CareRecord> careRecords = GetRecords();
+
+            foreach (CareRecord careRecord in careRecords) {
+                if (careRecord.Id == id) return careRecord;
+            }
+
+            return null;
+        }
 
         // Add Record
 
