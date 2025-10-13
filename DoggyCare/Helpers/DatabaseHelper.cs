@@ -1,10 +1,13 @@
-﻿using System.Configuration;
+﻿using DoggyCare.Enums;
+using DoggyCare.Models;
+using System.Configuration;
 using System.Data.SQLite;
 
 namespace DoggyCare.Helpers {
     public static class DatabaseHelper {
         private static string connectionString = ConfigurationManager.AppSettings.Get("connectString");
         private static string tableName = ConfigurationManager.AppSettings.Get("tableName");
+
         // Check or Init DB
         public static void CheckOrInitDb() {
             using (var connection = new SQLiteConnection(connectionString)) {
@@ -28,7 +31,34 @@ namespace DoggyCare.Helpers {
                 connection.Close();
             }
         }
+
         // Get Records
+        public static List<CareRecord> GetRecords() {
+            List<CareRecord> careRecords = new List<CareRecord>();
+            careRecords.Clear();
+
+            using (var connection = new SQLiteConnection(connectionString)) {
+                connection.Open();
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = $"SELECT * FROM {tableName} ORDER BY Date DESC";
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    careRecords.Add(new CareRecord {
+                        Id = reader.GetInt32(0),
+                        Date = DateTime.Parse(reader.GetString(1)),
+                        Year = reader.GetInt32(2),
+                        Month = reader.GetInt32(3),
+                        Day = reader.GetInt32(4),
+                        Type = (CareRecordType)reader.GetInt32(5),
+                        Price = (decimal)reader.GetDouble(6),
+                        Weight = reader.IsDBNull(7) ? (decimal?)null : (decimal)reader.GetDouble(7),
+                        Description = reader.IsDBNull(8) ? string.Empty : reader.GetString(8)
+                    });
+                }
+                return careRecords;
+            }
+        }
 
         // Get Record with ID
 
