@@ -96,5 +96,14 @@ namespace DoggyCare.Helpers {
         // Update Record
 
         // Delete Record
+        public static void DeleteRecord(int id) {
+            using (var connection = new SQLiteConnection(connectionString)) {
+                connection.Open();
+                var cmd = connection.CreateCommand();
+                cmd.CommandText = $"DELETE FROM {tableName} WHERE Id = @id";
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
