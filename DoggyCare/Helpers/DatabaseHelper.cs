@@ -61,17 +61,6 @@ namespace DoggyCare.Helpers {
             }
         }
 
-        // Get Record with ID
-        public static CareRecord GetCareRecord(int id) {
-            List<CareRecord> careRecords = GetCareRecords();
-
-            foreach (CareRecord careRecord in careRecords) {
-                if (careRecord.Id == id) return careRecord;
-            }
-
-            return null;
-        }
-
         // Add Record
         public static void AddCareRecord(CareRecord inputCareRecord) {
             using (var connection = new SQLiteConnection(connectionString)) {
