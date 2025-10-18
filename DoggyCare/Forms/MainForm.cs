@@ -7,7 +7,7 @@ namespace DoggyCare {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
-
+            ShowPage(PageType.Dashboard);
         }
 
         private void headerBtnAddRecord_Click(object sender, EventArgs e) {
