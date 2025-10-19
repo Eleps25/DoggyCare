@@ -6,6 +6,15 @@ namespace DoggyCare.Enums {
         Dashboard,
 
         [Description("Záznamy")]
-        CareRecords
+        CareRecords,
+
+        [Description("Přidat záznam")]
+        AddCareRecord,
+
+        [Description("Aktualizovat záznam")]
+        UpdateCareRecord,
+
+        [Description("Reporty")]
+        Reports,
     }
 }
