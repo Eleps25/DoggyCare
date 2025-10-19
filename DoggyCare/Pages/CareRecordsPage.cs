@@ -2,12 +2,14 @@
 using DoggyCare.Extensions;
 using DoggyCare.Helpers;
 using DoggyCare.Interfaces;
+using DoggyCare.Navigation;
 using System.Data;
 
 namespace DoggyCare.Pages {
     public partial class CareRecordsPage : UserControl, IPage {
         public CareRecordsPage() {
             InitializeComponent();
+            PageManager.LastPageType = PageType.CareRecords;
             CareRecordsHelperFunctions.StylizeDataGridView(dgvCareRecords);
             UpdateCareRecords();
             //this.BackColor = Color.Orange;
