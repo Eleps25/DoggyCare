@@ -1,5 +1,5 @@
 ﻿namespace DoggyCare.Interfaces {
-    internal interface IPage {
+    public interface IPage {
         UserControl GetView();
     }
 }
