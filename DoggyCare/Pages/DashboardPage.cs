@@ -46,8 +46,8 @@ namespace DoggyCare.Pages {
             }
 
             CareRecordsHelperFunctions.StylizeDataGridView(dataGridView);
-
-
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             return dataGridView;
         }
@@ -62,6 +62,8 @@ namespace DoggyCare.Pages {
                     column.HeaderText = dt.Columns[column.DataPropertyName].Caption;
                 }
             }
+
+            dgv.Columns["Id"].Visible = false;
         }
 
         private void dgvDashboardCareRecords_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
