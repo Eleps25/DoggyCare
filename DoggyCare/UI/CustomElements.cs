@@ -14,6 +14,27 @@
             return cancelButton;
         }
 
+        public static Button CreateAddCareRecordButton() {
+            Button addCareRecordButton = new Button();
+
+            UIStyleManager.StyleButton(addCareRecordButton, ColorTranslator.FromHtml("#00BFA5"), Color.White, "Přidat záznam");
+            return addCareRecordButton;
+        }
+
+        public static Button CreateUpdateCareRecordButton() {
+            Button updateCareRecordButton = new Button();
+
+            UIStyleManager.StyleButton(updateCareRecordButton, ColorTranslator.FromHtml("#26C6DA"), Color.White, "Upravit záznam");
+            return updateCareRecordButton;
+        }
+
+        public static Button CreateDeleteCareRecordButton() {
+            Button DeleteCareRecordButton = new Button();
+
+            UIStyleManager.StyleButton(DeleteCareRecordButton, ColorTranslator.FromHtml("#FF7043"), Color.White, "Smazat záznam");
+            return DeleteCareRecordButton;
+        }
+
         public static Panel CreateDashboardCard(string header, string value) {
             Panel card = new Panel();
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
