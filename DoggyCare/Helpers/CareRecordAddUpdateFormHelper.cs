@@ -1,4 +1,5 @@
 ﻿using DoggyCare.Enums;
+using DoggyCare.Models;
 using System.ComponentModel;
 
 namespace DoggyCare.Helpers {
@@ -35,14 +36,15 @@ namespace DoggyCare.Helpers {
             comboBox.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             comboBox.ForeColor = ColorTranslator.FromHtml("#333333");
 
-            comboBox.DataSource = Enum.GetValues(typeof(CareRecordType))
-                .Cast<Enum>()
-                .Select(e => new {
-                    Value = e,
-                    Text = ((DescriptionAttribute)Attribute
-                                .GetCustomAttribute(e.GetType().GetField(e.ToString()), typeof(DescriptionAttribute)))?.Description ?? e.ToString()
-                })
-                .ToList();
+
+            foreach (CareRecordType value in Enum.GetValues(typeof(CareRecordType))) {
+                var field = value.GetType().GetField(value.ToString());
+                var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+                var description = attribute?.Description ?? value.ToString();
+                ComboBoxCareRecordsItem<CareRecordType> item = new ComboBoxCareRecordsItem<CareRecordType>() { Value = value, Text = description };
+
+                comboBox.Items.Add(item);
+            }
 
             comboBox.DisplayMember = "Text";
             comboBox.ValueMember = "Value";
@@ -73,6 +75,17 @@ namespace DoggyCare.Helpers {
             textBox.Size = new Size(240, 30);
 
             return textBox;
+        }
+
+        public static int GetIndexFromComboBoxCareRecordsItems(ComboBox cb, CareRecordType targetType) {
+            for (int i = 0; i < cb.Items.Count; i++) {
+                var item = cb.Items[i];
+                var valueProp = item.GetType().GetProperty("Value")?.GetValue(item);
+                if (valueProp is CareRecordType type && type == targetType) {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

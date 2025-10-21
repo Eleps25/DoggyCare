@@ -23,7 +23,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            components = new System.ComponentModel.Container();
             tlpAddRecord = new TableLayoutPanel();
+            careRecordBindingSource = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)careRecordBindingSource).BeginInit();
             SuspendLayout();
             // 
             // tlpAddRecord
@@ -44,18 +47,24 @@
             tlpAddRecord.Size = new Size(428, 388);
             tlpAddRecord.TabIndex = 0;
             // 
-            // AddCareRecordPage
+            // careRecordBindingSource
+            // 
+            careRecordBindingSource.DataSource = typeof(Models.CareRecord);
+            // 
+            // AddUpdateCareRecordPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tlpAddRecord);
-            Name = "AddCareRecordPage";
+            Name = "AddUpdateCareRecordPage";
             Size = new Size(428, 388);
+            ((System.ComponentModel.ISupportInitialize)careRecordBindingSource).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private TableLayoutPanel tlpAddRecord;
+        private BindingSource careRecordBindingSource;
     }
 }

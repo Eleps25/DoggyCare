@@ -12,9 +12,15 @@ namespace DoggyCare.Pages {
         private NumericUpDown _priceNud;
         private NumericUpDown _weightNud;
         private TextBox _descriptionTb;
+        private int _careRecordToUpdateId;
         public AddUpdateCareRecordPage() {
             InitializeComponent();
             CreateAddForm();
+        }
+
+        public AddUpdateCareRecordPage(CareRecord careRecordToUpdate) {
+            InitializeComponent();
+            CreateUpdateForm(careRecordToUpdate);
         }
 
         public UserControl GetView() => this;
@@ -65,9 +71,28 @@ namespace DoggyCare.Pages {
             tlpAddRecord.Controls.Add(flpButtons, 1, 5);
         }
 
+
+        private void CreateUpdateForm(CareRecord careRecordToUpdate) {
+            CreateAddForm();
+            _careRecordToUpdateId = careRecordToUpdate.Id;
+            _dateDtp.Value = careRecordToUpdate.Date;
+
+            _typeCb.SelectedIndex = CareRecordAddUpdateFormHelper.GetIndexFromComboBoxCareRecordsItems(_typeCb, careRecordToUpdate.Type);
+            var selectedItem = _typeCb.SelectedItem as ComboBoxCareRecordsItem<CareRecordType>;
+
+            _priceNud.Value = careRecordToUpdate.Price;
+            if (careRecordToUpdate.Weight != null) {
+                _weightNud.Value = (decimal)careRecordToUpdate.Weight;
+            } else {
+                _weightNud.Value = 0;
+            }
+            _descriptionTb.Text = careRecordToUpdate.Description;
+        }
+
         private void HandleSaveBtnClick() {
             DateTime date = _dateDtp.Value;
-            CareRecordType type = (CareRecordType)_typeCb.SelectedValue;
+            var selectedItem = _typeCb.SelectedItem as ComboBoxCareRecordsItem<CareRecordType>;
+            CareRecordType type = (CareRecordType)selectedItem.Value;
             Decimal price = _priceNud.Value;
             Decimal weight = _weightNud.Value;
             string description = _descriptionTb.Text;
@@ -80,7 +105,13 @@ namespace DoggyCare.Pages {
                 Description = description
             };
 
-            DatabaseHelper.AddCareRecord(newRecord);
+            if (_careRecordToUpdateId > 0) {
+                newRecord.Id = _careRecordToUpdateId;
+                DatabaseHelper.UpdateRecord(newRecord);
+            } else {
+                DatabaseHelper.AddCareRecord(newRecord);
+            }
+
             PageManager.ShowPage(PageManager.LastPageType);
         }
 

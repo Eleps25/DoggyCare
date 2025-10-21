@@ -1,6 +1,7 @@
 ﻿using DoggyCare.Enums;
 using DoggyCare.Extensions;
 using DoggyCare.Interfaces;
+using DoggyCare.Models;
 using DoggyCare.Pages;
 
 namespace DoggyCare.Navigation {
@@ -9,6 +10,7 @@ namespace DoggyCare.Navigation {
         private static Panel? _targetPanel;
         private static Label? _titleLabel;
         private static PageType lastPageType;
+        private static CareRecord _careRecordToUpdate;
         public static void Initialize(Panel targetPanel, Label titleLabel) {
             _targetPanel = targetPanel;
             _titleLabel = titleLabel;
@@ -22,6 +24,8 @@ namespace DoggyCare.Navigation {
                     return new CareRecordsPage();
                 case PageType.AddCareRecord:
                     return new AddUpdateCareRecordPage();
+                case PageType.UpdateCareRecord:
+                    return new AddUpdateCareRecordPage(_careRecordToUpdate);
                 default:
                     return new DashboardPage(); // fallback
             }
@@ -41,6 +45,10 @@ namespace DoggyCare.Navigation {
             if (_titleLabel != null) {
                 _titleLabel.Text = EnumExtensions.GetEnumDescription(pageType);
             }
+        }
+
+        public static void SetCareRecordToUpdate(CareRecord recordToUpdate) {
+            _careRecordToUpdate = recordToUpdate;
         }
     }
 }
