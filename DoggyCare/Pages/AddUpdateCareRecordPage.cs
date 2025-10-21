@@ -49,6 +49,7 @@ namespace DoggyCare.Pages {
             tlpAddRecord.Controls.Add(descriptionTb, 1, 4);
             _dateDtp = dateDtp;
             _typeCb = typeCb;
+            _typeCb.SelectedIndex = 0;
             _priceNud = priceNud;
             _weightNud = weightNud;
             _descriptionTb = descriptionTb;
@@ -78,7 +79,6 @@ namespace DoggyCare.Pages {
             _dateDtp.Value = careRecordToUpdate.Date;
 
             _typeCb.SelectedIndex = CareRecordAddUpdateFormHelper.GetIndexFromComboBoxCareRecordsItems(_typeCb, careRecordToUpdate.Type);
-            var selectedItem = _typeCb.SelectedItem as ComboBoxCareRecordsItem<CareRecordType>;
 
             _priceNud.Value = careRecordToUpdate.Price;
             if (careRecordToUpdate.Weight != null) {
