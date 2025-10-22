@@ -61,6 +61,7 @@ namespace DoggyCare.Pages {
 
             addCareRecordBtn.Click += (sender, e) => HandleAddBtnClick();
             updateCareRecordBtn.Click += (sender, e) => HandleUpdateBtnClick(sender, e);
+            deleteCareRecordBtn.Click += (sender, e) => HandleDeleteBtnClick();
 
             return tableLayoutPanel;
         }
@@ -90,6 +91,30 @@ namespace DoggyCare.Pages {
 
             PageManager.SetCareRecordToUpdate(recordToUpdate);
             PageManager.ShowPage(PageType.UpdateCareRecord);
+        }
+
+        private void HandleDeleteBtnClick() {
+            if (dgvCareRecords.CurrentRow == null) return;
+
+            int id = (int)dgvCareRecords.CurrentRow.Cells["Id"].Value;
+
+            // Zobrazí potvrzovací dialog
+            DialogResult result = MessageBox.Show(
+                "Opravdu chceš smazat vybraný záznam?",
+                "Potvrzení smazání",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            // Vyhodnocení odpovědi uživatele
+            if (result == DialogResult.Yes) {
+                DatabaseHelper.DeleteRecord(id);
+                MessageBox.Show("Záznam byl úspěšně smazán.", "Hotovo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateCareRecords();
+            } else {
+                MessageBox.Show("Smazání bylo zrušeno.", "Zrušeno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
     }
 }
