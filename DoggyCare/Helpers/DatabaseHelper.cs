@@ -89,13 +89,14 @@ namespace DoggyCare.Helpers {
             using (var connection = new SQLiteConnection(connectionString)) {
                 connection.Open();
                 var cmd = connection.CreateCommand();
-                cmd.CommandText = $"UPDATE {tableName} SET Date = @Date, Year = @Year, Month = @Month, Day = @Day, Type = @Type, Price = @Price, Weight = @Weight, Description = @Description";
+                cmd.CommandText = $"UPDATE {tableName} SET Date = @Date, Year = @Year, Month = @Month, Day = @Day, Type = @Type, Price = @Price, Weight = @Weight, Description = @Description Where Id = @ID";
                 cmd.Parameters.AddWithValue("@Date", updateCareRecord.Date.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@Year", updateCareRecord.Year);
                 cmd.Parameters.AddWithValue("@Month", updateCareRecord.Month);
                 cmd.Parameters.AddWithValue("@Day", updateCareRecord.Day);
                 cmd.Parameters.AddWithValue("@Type", (int)updateCareRecord.Type);
                 cmd.Parameters.AddWithValue("@Price", (double)updateCareRecord.Price);
+                cmd.Parameters.AddWithValue("@ID", updateCareRecord.Id);
                 if (updateCareRecord.Weight.HasValue) {
                     cmd.Parameters.AddWithValue("@Weight", (double)updateCareRecord.Weight.Value);
                 } else {

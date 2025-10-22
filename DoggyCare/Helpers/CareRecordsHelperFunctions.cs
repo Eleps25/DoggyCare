@@ -7,7 +7,7 @@ namespace DoggyCare.Helpers {
         public static List<CareRecord> GetXNewestCareRecords(int numberOfRecords) {
             List<CareRecord> careRecords = DatabaseHelper.GetCareRecords();
 
-            List<CareRecord> newestCareRecords = careRecords.OrderBy(careRecord => careRecord.Date).Take(numberOfRecords).ToList();
+            List<CareRecord> newestCareRecords = careRecords.OrderByDescending(careRecord => careRecord.Date).Take(numberOfRecords).ToList();
             return newestCareRecords;
         }
 
@@ -30,6 +30,7 @@ namespace DoggyCare.Helpers {
             DataColumn priceCol = dataTable.Columns.Add("Price", typeof(decimal));
             DataColumn weightCol = dataTable.Columns.Add("Weight");
             DataColumn descriptionCol = dataTable.Columns.Add("Description", typeof(string));
+            DataColumn idCol = dataTable.Columns.Add("Id", typeof(int));
 
             DateCol.Caption = "Datum";
             typeCol.Caption = "Typ";
@@ -48,6 +49,7 @@ namespace DoggyCare.Helpers {
                 row["Price"] = careRecord.Price;
                 row["Weight"] = careRecord.Weight;
                 row["Description"] = careRecord.Description;
+                row["id"] = careRecord.Id;
 
                 dataTable.Rows.Add(row);
             }
@@ -63,6 +65,7 @@ namespace DoggyCare.Helpers {
             DataColumn priceCol = dataTable.Columns.Add("Price", typeof(decimal));
             DataColumn weightCol = dataTable.Columns.Add("Weight");
             DataColumn descriptionCol = dataTable.Columns.Add("Description", typeof(string));
+            DataColumn idCol = dataTable.Columns.Add("Id", typeof(int));
 
             DateCol.Caption = "Datum";
             typeCol.Caption = "Typ";
@@ -81,6 +84,7 @@ namespace DoggyCare.Helpers {
                 row["Price"] = careRecord.Price;
                 row["Weight"] = careRecord.Weight;
                 row["Description"] = careRecord.Description;
+                row["Id"] = careRecord.Id;
 
                 dataTable.Rows.Add(row);
             }

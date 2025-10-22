@@ -2,15 +2,18 @@
 using DoggyCare.Extensions;
 using DoggyCare.Helpers;
 using DoggyCare.Interfaces;
+using DoggyCare.Navigation;
+using DoggyCare.UI;
 using System.Data;
 
 namespace DoggyCare.Pages {
     public partial class DashboardPage : UserControl, IPage {
         public DashboardPage() {
             InitializeComponent();
-            Panel lastVetVisitCard = CreateCard("Poslední návštěva veterináře", SummaryHelper.GetLastVetVisitString());
-            Panel lastVetVisitCard2 = CreateCard("Poslední návštěva veterináře 2", SummaryHelper.GetLastVetVisitString());
-            Panel lastVetVisitCard3 = CreateCard("Poslední návštěva veterináře 3", SummaryHelper.GetLastVetVisitString());
+            PageManager.LastPageType = PageType.Dashboard;
+            Panel lastVetVisitCard = CustomElements.CreateDashboardCard("Poslední návštěva veterináře", SummaryHelper.GetLastVetVisitString());
+            Panel lastVetVisitCard2 = CustomElements.CreateDashboardCard("Poslední návštěva veterináře 2", SummaryHelper.GetLastVetVisitString());
+            Panel lastVetVisitCard3 = CustomElements.CreateDashboardCard("Poslední návštěva veterináře 3", SummaryHelper.GetLastVetVisitString());
             tlpDashboard.Controls.Add(lastVetVisitCard, 0, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard2, 1, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard3, 2, 0);
@@ -23,45 +26,11 @@ namespace DoggyCare.Pages {
 
         public UserControl GetView() => this;
 
-        private Panel CreateCard(string header, string value) {
-            Panel card = new Panel();
-            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
-            Label headerLabel = new Label();
-            Label valueLabel = new Label();
 
-            headerLabel.Text = header;
-            headerLabel.AutoSize = true;
-            headerLabel.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-            headerLabel.ForeColor = ColorTranslator.FromHtml("#888888");
-            headerLabel.Dock = DockStyle.Fill;
-
-            valueLabel.Text = value;
-            valueLabel.AutoSize = true;
-            valueLabel.Font = new Font("Segoe UI", 14);
-            valueLabel.ForeColor = ColorTranslator.FromHtml("#333333");
-            valueLabel.Dock = DockStyle.Fill;
-
-            tableLayoutPanel.Dock = DockStyle.Fill;
-            tableLayoutPanel.ColumnCount = 1;
-            tableLayoutPanel.RowCount = 2;
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-            tableLayoutPanel.Controls.Add(headerLabel, 0, 0);
-            tableLayoutPanel.Controls.Add(valueLabel, 0, 1);
-
-            card.Dock = DockStyle.Fill;
-            card.BackColor = Color.White;
-            card.Padding = new Padding(10, 15, 10, 15);
-            card.Margin = new Padding(10, 10, 10, 10);
-            card.Controls.Add(tableLayoutPanel);
-
-            return card;
-        }
 
         private DataGridView CreateLastXCareRecordsTable(int numberOfRecords) {
             DataGridView dataGridView = new DataGridView();
-            DataTable dataTable = CareRecordsHelperFunctions.GetDataTableCareRecords();
+            DataTable dataTable = CareRecordsHelperFunctions.GetDataTableCareRecords(numberOfRecords);
 
             //Add events for changing description of columns
             dataGridView.DataBindingComplete -= dgvDashboardCareRecords_DataBindingComplete; // check to not being added 2x
@@ -77,8 +46,8 @@ namespace DoggyCare.Pages {
             }
 
             CareRecordsHelperFunctions.StylizeDataGridView(dataGridView);
-
-
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             return dataGridView;
         }
@@ -93,6 +62,8 @@ namespace DoggyCare.Pages {
                     column.HeaderText = dt.Columns[column.DataPropertyName].Caption;
                 }
             }
+
+            dgv.Columns["Id"].Visible = false;
         }
 
         private void dgvDashboardCareRecords_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) {
