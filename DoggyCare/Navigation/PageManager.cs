@@ -9,11 +9,13 @@ namespace DoggyCare.Navigation {
         public static PageType LastPageType { get; set; }
         private static Panel? _targetPanel;
         private static Label? _titleLabel;
+        private static Button? _addCareRecordButton;
         private static PageType lastPageType;
         private static CareRecord _careRecordToUpdate;
-        public static void Initialize(Panel targetPanel, Label titleLabel) {
+        public static void Initialize(Panel targetPanel, Label titleLabel, Button addCareREcordButton) {
             _targetPanel = targetPanel;
             _titleLabel = titleLabel;
+            _addCareRecordButton = addCareREcordButton;
         }
 
         public static IPage GetPage(PageType pageType) {
@@ -44,6 +46,14 @@ namespace DoggyCare.Navigation {
 
             if (_titleLabel != null) {
                 _titleLabel.Text = EnumExtensions.GetEnumDescription(pageType);
+            }
+
+            if (_addCareRecordButton != null) {
+                if (pageType == PageType.Dashboard) {
+                    _addCareRecordButton.Visible = true;
+                } else {
+                    _addCareRecordButton.Visible = false;
+                }
             }
         }
 

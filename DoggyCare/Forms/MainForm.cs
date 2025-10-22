@@ -5,7 +5,7 @@ namespace DoggyCare {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
-            PageManager.Initialize(mainPanel, lblTitle);
+            PageManager.Initialize(mainPanel, lblTitle, headerBtnAddRecord);
             PageManager.ShowPage(PageType.Dashboard);
         }
 
