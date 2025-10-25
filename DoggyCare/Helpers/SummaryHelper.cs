@@ -23,5 +23,36 @@ namespace DoggyCare.Helpers {
                 return DateTime.MinValue;
             }
         }
+
+        public static string GetLastWeightString() {
+            return $"{GetLastWeight().ToString()} kg";
+        }
+
+        public static Decimal GetLastWeight() {
+            List<CareRecord> careRecords = DatabaseHelper.GetCareRecords();
+
+            CareRecord? lastWeight = careRecords.Where(careRecord => careRecord.Type == Enums.CareRecordType.Weight).MaxBy(careRecord => careRecord.Date);
+            if (lastWeight != null) {
+                return (decimal)lastWeight.Weight;
+            } else {
+                return 0;
+            }
+        }
+
+        public static string GetLastFoodPriceString() {
+            return $"{GetLastFoodPrice().ToString()},- Kč";
+        }
+
+        public static Decimal GetLastFoodPrice() {
+            List<CareRecord> careRecords = DatabaseHelper.GetCareRecords();
+
+            CareRecord? lastFoodPrice = careRecords.Where(careRecord => careRecord.Type == Enums.CareRecordType.Food).MaxBy(careRecord => careRecord.Date);
+
+            if (lastFoodPrice != null) {
+                return lastFoodPrice.Price;
+            } else {
+                return 0;
+            }
+        }
     }
 }
