@@ -22,6 +22,8 @@ namespace DoggyCare.Pages {
 
             tlpDashboard.Controls.Add(latestCareRecords, 0, 1);
             tlpDashboard.SetColumnSpan(latestCareRecords, 3);
+
+            SummaryHelper.LoadChartData(formsPlot1);
         }
 
         public UserControl GetView() => this;
