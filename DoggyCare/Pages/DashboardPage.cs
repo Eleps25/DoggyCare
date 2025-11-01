@@ -12,8 +12,8 @@ namespace DoggyCare.Pages {
             InitializeComponent();
             PageManager.LastPageType = PageType.Dashboard;
             Panel lastVetVisitCard = CustomElements.CreateDashboardCard("Poslední návštěva veterináře", SummaryHelper.GetLastVetVisitString());
-            Panel lastVetVisitCard2 = CustomElements.CreateDashboardCard("Poslední návštěva veterináře 2", SummaryHelper.GetLastVetVisitString());
-            Panel lastVetVisitCard3 = CustomElements.CreateDashboardCard("Poslední návštěva veterináře 3", SummaryHelper.GetLastVetVisitString());
+            Panel lastVetVisitCard2 = CustomElements.CreateDashboardCard("Poslední cena krmení", SummaryHelper.GetLastFoodPriceString());
+            Panel lastVetVisitCard3 = CustomElements.CreateDashboardCard("Poslední váha", SummaryHelper.GetLastWeightString());
             tlpDashboard.Controls.Add(lastVetVisitCard, 0, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard2, 1, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard3, 2, 0);
@@ -22,6 +22,8 @@ namespace DoggyCare.Pages {
 
             tlpDashboard.Controls.Add(latestCareRecords, 0, 1);
             tlpDashboard.SetColumnSpan(latestCareRecords, 3);
+
+            SummaryHelper.LoadChartData(formsPlot1);
         }
 
         public UserControl GetView() => this;
@@ -61,6 +63,17 @@ namespace DoggyCare.Pages {
                 if (dt.Columns.Contains(column.DataPropertyName)) {
                     column.HeaderText = dt.Columns[column.DataPropertyName].Caption;
                 }
+            }
+
+            if (SummaryHelper.LastDashboardRecordsClientSize.IsEmpty) {
+                dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dgv.RowTemplate.Height = (dgv.ClientSize.Height - dgv.ColumnHeadersHeight)
+                                                  / Math.Max(1, dgv.Rows.Count);
+                SummaryHelper.LastDashboardRecordsClientSize = dgv.ClientSize;
+            } else {
+                dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dgv.RowTemplate.Height = (SummaryHelper.LastDashboardRecordsClientSize.Height - dgv.ColumnHeadersHeight)
+                                                  / Math.Max(1, dgv.Rows.Count);
             }
 
             dgv.Columns["Id"].Visible = false;
