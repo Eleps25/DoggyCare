@@ -65,6 +65,17 @@ namespace DoggyCare.Pages {
                 }
             }
 
+            if (SummaryHelper.LastDashboardRecordsClientSize.IsEmpty) {
+                dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dgv.RowTemplate.Height = (dgv.ClientSize.Height - dgv.ColumnHeadersHeight)
+                                                  / Math.Max(1, dgv.Rows.Count);
+                SummaryHelper.LastDashboardRecordsClientSize = dgv.ClientSize;
+            } else {
+                dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+                dgv.RowTemplate.Height = (SummaryHelper.LastDashboardRecordsClientSize.Height - dgv.ColumnHeadersHeight)
+                                                  / Math.Max(1, dgv.Rows.Count);
+            }
+
             dgv.Columns["Id"].Visible = false;
         }
 

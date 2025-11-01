@@ -3,6 +3,7 @@ using ScottPlot.WinForms;
 
 namespace DoggyCare.Helpers {
     public static class SummaryHelper {
+        public static Size LastDashboardRecordsClientSize { get; set; }
 
         public static string GetLastVetVisitString() {
             var lastVetVisitEntryDateTime = GetLastVetVisit();
