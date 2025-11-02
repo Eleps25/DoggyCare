@@ -148,7 +148,7 @@ namespace DoggyCare.Helpers {
             comboBox.Name = cbName;
             //comboBox.Dock = DockStyle.Left;
             //comboBox.Anchor = AnchorStyles.Left;
-            comboBox.Location = new Point(0, 12);
+            comboBox.Location = new Point(0, 11);
             comboBox.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             comboBox.ForeColor = ColorTranslator.FromHtml("#333333");
 

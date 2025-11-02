@@ -17,6 +17,8 @@ namespace DoggyCare.Pages {
         private ComboBox _typeCb;
         public Reports() {
             InitializeComponent();
+            UIStyleManager.StyleButton(btnFilter, ColorTranslator.FromHtml("#00BFA5"), Color.White, "Filtrovat");
+            btnFilter.Location = new Point(0, 11);
             RefreshPage(true);
         }
 

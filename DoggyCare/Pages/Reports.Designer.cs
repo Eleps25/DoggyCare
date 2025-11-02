@@ -42,6 +42,7 @@
             // 
             // tlpReports
             // 
+            tlpReports.BackColor = Color.FromArgb(248, 249, 250);
             tlpReports.ColumnCount = 3;
             tlpReports.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
             tlpReports.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
@@ -75,16 +76,17 @@
             // 
             lblDateTo.Anchor = AnchorStyles.Left;
             lblDateTo.AutoSize = true;
-            lblDateTo.Location = new Point(3, 12);
+            lblDateTo.Font = new Font("Segoe UI", 10F);
+            lblDateTo.Location = new Point(3, 10);
             lblDateTo.Name = "lblDateTo";
-            lblDateTo.Size = new Size(65, 15);
+            lblDateTo.Size = new Size(77, 19);
             lblDateTo.TabIndex = 0;
             lblDateTo.Text = "Datum Od:";
             // 
             // dtpDateTo
             // 
             dtpDateTo.Format = DateTimePickerFormat.Short;
-            dtpDateTo.Location = new Point(74, 8);
+            dtpDateTo.Location = new Point(86, 8);
             dtpDateTo.Name = "dtpDateTo";
             dtpDateTo.Size = new Size(111, 23);
             dtpDateTo.TabIndex = 1;
@@ -104,16 +106,17 @@
             // 
             lblDateFrom.Anchor = AnchorStyles.Left;
             lblDateFrom.AutoSize = true;
-            lblDateFrom.Location = new Point(3, 12);
+            lblDateFrom.Font = new Font("Segoe UI", 10F);
+            lblDateFrom.Location = new Point(3, 10);
             lblDateFrom.Name = "lblDateFrom";
-            lblDateFrom.Size = new Size(65, 15);
+            lblDateFrom.Size = new Size(77, 19);
             lblDateFrom.TabIndex = 0;
             lblDateFrom.Text = "Datum Od:";
             // 
             // dtpDateFrom
             // 
             dtpDateFrom.Format = DateTimePickerFormat.Short;
-            dtpDateFrom.Location = new Point(74, 8);
+            dtpDateFrom.Location = new Point(86, 8);
             dtpDateFrom.Name = "dtpDateFrom";
             dtpDateFrom.Size = new Size(111, 23);
             dtpDateFrom.TabIndex = 1;
