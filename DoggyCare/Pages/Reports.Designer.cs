@@ -31,18 +31,13 @@
             lblDateFrom = new Label();
             dtpDateFrom = new DateTimePicker();
             splitContainer1 = new SplitContainer();
-            cbType = new ComboBox();
             btnFilter = new Button();
-            dataGridView1 = new DataGridView();
-            formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             tlpReports.SuspendLayout();
             flpDateTo.SuspendLayout();
             flpDateFrom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tlpReports
@@ -54,8 +49,6 @@
             tlpReports.Controls.Add(flpDateTo, 1, 0);
             tlpReports.Controls.Add(flpDateFrom, 0, 0);
             tlpReports.Controls.Add(splitContainer1, 2, 0);
-            tlpReports.Controls.Add(dataGridView1, 0, 2);
-            tlpReports.Controls.Add(formsPlot1, 0, 3);
             tlpReports.Dock = DockStyle.Fill;
             tlpReports.Location = new Point(0, 0);
             tlpReports.Name = "tlpReports";
@@ -131,24 +124,12 @@
             splitContainer1.Location = new Point(429, 3);
             splitContainer1.Name = "splitContainer1";
             // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(cbType);
-            // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(btnFilter);
             splitContainer1.Size = new Size(209, 31);
             splitContainer1.SplitterDistance = 133;
             splitContainer1.TabIndex = 2;
-            // 
-            // cbType
-            // 
-            cbType.FormattingEnabled = true;
-            cbType.Location = new Point(0, 8);
-            cbType.Name = "cbType";
-            cbType.Size = new Size(121, 23);
-            cbType.TabIndex = 0;
             // 
             // btnFilter
             // 
@@ -158,26 +139,7 @@
             btnFilter.TabIndex = 0;
             btnFilter.Text = "Filtrovat";
             btnFilter.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tlpReports.SetColumnSpan(dataGridView1, 3);
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 153);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(635, 154);
-            dataGridView1.TabIndex = 3;
-            // 
-            // formsPlot1
-            // 
-            tlpReports.SetColumnSpan(formsPlot1, 3);
-            formsPlot1.DisplayScale = 1F;
-            formsPlot1.Dock = DockStyle.Fill;
-            formsPlot1.Location = new Point(3, 313);
-            formsPlot1.Name = "formsPlot1";
-            formsPlot1.Size = new Size(635, 157);
-            formsPlot1.TabIndex = 4;
+            btnFilter.Click += btnFilter_Click;
             // 
             // Reports
             // 
@@ -192,11 +154,9 @@
             flpDateTo.PerformLayout();
             flpDateFrom.ResumeLayout(false);
             flpDateFrom.PerformLayout();
-            splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -211,8 +171,5 @@
         private DateTimePicker dtpDateFrom;
         private SplitContainer splitContainer1;
         private Button btnFilter;
-        private ComboBox cbType;
-        private DataGridView dataGridView1;
-        private ScottPlot.WinForms.FormsPlot formsPlot1;
     }
 }

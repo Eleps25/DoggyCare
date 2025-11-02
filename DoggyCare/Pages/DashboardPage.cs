@@ -11,9 +11,9 @@ namespace DoggyCare.Pages {
         public DashboardPage() {
             InitializeComponent();
             PageManager.LastPageType = PageType.Dashboard;
-            Panel lastVetVisitCard = CustomElements.CreateDashboardCard("Poslední návštěva veterináře", SummaryHelper.GetLastVetVisitString());
-            Panel lastVetVisitCard2 = CustomElements.CreateDashboardCard("Poslední cena krmení", SummaryHelper.GetLastFoodPriceString());
-            Panel lastVetVisitCard3 = CustomElements.CreateDashboardCard("Poslední váha", SummaryHelper.GetLastWeightString());
+            Panel lastVetVisitCard = CustomElements.CreateCard("Poslední návštěva veterináře", SummaryHelper.GetLastVetVisitString());
+            Panel lastVetVisitCard2 = CustomElements.CreateCard("Poslední cena krmení", SummaryHelper.GetLastFoodPriceString());
+            Panel lastVetVisitCard3 = CustomElements.CreateCard("Poslední váha", SummaryHelper.GetLastWeightString());
             tlpDashboard.Controls.Add(lastVetVisitCard, 0, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard2, 1, 0);
             tlpDashboard.Controls.Add(lastVetVisitCard3, 2, 0);

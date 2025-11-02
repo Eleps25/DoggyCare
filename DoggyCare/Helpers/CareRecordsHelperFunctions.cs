@@ -74,9 +74,81 @@ namespace DoggyCare.Helpers {
             descriptionCol.Caption = "Popis";
 
             // Vyplnit data
-            List<CareRecord> careRecords = GetXNewestCareRecords(numberOfRecords);
+            List<CareRecord> careRecords = DatabaseHelper.GetCareRecords();
 
             foreach (CareRecord careRecord in careRecords) {
+                var row = dataTable.NewRow();
+
+                row["Date"] = careRecord.Date;
+                row["Type"] = careRecord.Type;
+                row["Price"] = careRecord.Price;
+                row["Weight"] = careRecord.Weight;
+                row["Description"] = careRecord.Description;
+                row["Id"] = careRecord.Id;
+
+                dataTable.Rows.Add(row);
+            }
+
+            return dataTable;
+        }
+
+
+        public static DataTable GetDataTableCareRecordsInPeriodByType(DateTime dateFrom, DateTime dateTo, CareRecordType careRecordType) {
+            DataTable dataTable = new DataTable();
+
+            DataColumn DateCol = dataTable.Columns.Add("Date", typeof(DateTime));
+            DataColumn typeCol = dataTable.Columns.Add("Type", typeof(CareRecordType));
+            DataColumn priceCol = dataTable.Columns.Add("Price", typeof(decimal));
+            DataColumn weightCol = dataTable.Columns.Add("Weight");
+            DataColumn descriptionCol = dataTable.Columns.Add("Description", typeof(string));
+            DataColumn idCol = dataTable.Columns.Add("Id", typeof(int));
+
+            DateCol.Caption = "Datum";
+            typeCol.Caption = "Typ";
+            priceCol.Caption = "Cena (Kč)";
+            weightCol.Caption = "Váha (Kg)";
+            descriptionCol.Caption = "Popis";
+
+            // Vyplnit data
+            List<CareRecord> careRecordsInPeriod = ReportsHelper.GetCareRecordsInTimePeriodByType(careRecordType, dateFrom, dateTo);
+
+            foreach (CareRecord careRecord in careRecordsInPeriod) {
+                var row = dataTable.NewRow();
+
+                row["Date"] = careRecord.Date;
+                row["Type"] = careRecord.Type;
+                row["Price"] = careRecord.Price;
+                row["Weight"] = careRecord.Weight;
+                row["Description"] = careRecord.Description;
+                row["Id"] = careRecord.Id;
+
+                dataTable.Rows.Add(row);
+            }
+
+            return dataTable;
+        }
+
+        public static DataTable GetDataTableCareRecordsInPeriod(DateTime dateFrom, DateTime dateTo) {
+            DataTable dataTable = new DataTable();
+
+            DataColumn DateCol = dataTable.Columns.Add("Date", typeof(DateTime));
+            DataColumn typeCol = dataTable.Columns.Add("Type", typeof(CareRecordType));
+            DataColumn priceCol = dataTable.Columns.Add("Price", typeof(decimal));
+            DataColumn weightCol = dataTable.Columns.Add("Weight");
+            DataColumn descriptionCol = dataTable.Columns.Add("Description", typeof(string));
+            DataColumn idCol = dataTable.Columns.Add("Id", typeof(int));
+
+            DateCol.Caption = "Datum";
+            typeCol.Caption = "Typ";
+            priceCol.Caption = "Cena (Kč)";
+            weightCol.Caption = "Váha (Kg)";
+            descriptionCol.Caption = "Popis";
+
+            // Vyplnit data
+            //List<CareRecord> careRecords = GetXNewestCareRecords(numberOfRecords);
+            List<CareRecord> careRecordsInPeriod = ReportsHelper.GetCareRecordsInTimePeriod(dateFrom, dateTo);
+
+            foreach (CareRecord careRecord in careRecordsInPeriod) {
                 var row = dataTable.NewRow();
 
                 row["Date"] = careRecord.Date;
