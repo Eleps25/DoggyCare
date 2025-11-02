@@ -20,5 +20,9 @@ namespace DoggyCare {
         private void btnRecords_Click(object sender, EventArgs e) {
             PageManager.ShowPage(PageType.CareRecords);
         }
+
+        private void btnReports_Click(object sender, EventArgs e) {
+            PageManager.ShowPage(PageType.Reports);
+        }
     }
 }

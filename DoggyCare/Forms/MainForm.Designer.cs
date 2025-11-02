@@ -83,6 +83,7 @@
             btnReports.Text = "Reporty";
             btnReports.TextAlign = ContentAlignment.MiddleLeft;
             btnReports.UseVisualStyleBackColor = true;
+            btnReports.Click += btnReports_Click;
             // 
             // btnRecords
             // 

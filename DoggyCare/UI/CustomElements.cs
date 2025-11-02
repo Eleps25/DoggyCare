@@ -35,7 +35,7 @@
             return DeleteCareRecordButton;
         }
 
-        public static Panel CreateDashboardCard(string header, string value) {
+        public static Panel CreateCard(string header, string value) {
             Panel card = new Panel();
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel();
             Label headerLabel = new Label();

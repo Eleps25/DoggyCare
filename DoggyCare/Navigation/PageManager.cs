@@ -28,6 +28,8 @@ namespace DoggyCare.Navigation {
                     return new AddUpdateCareRecordPage();
                 case PageType.UpdateCareRecord:
                     return new AddUpdateCareRecordPage(_careRecordToUpdate);
+                case PageType.Reports:
+                    return new Reports();
                 default:
                     return new DashboardPage(); // fallback
             }
